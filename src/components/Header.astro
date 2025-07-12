@@ -1,0 +1,89 @@
+<header class="header">
+	<div class="container">
+		<div class="nav-brand">
+			<h2>LoyaltyWallet</h2>
+		</div>
+		<nav class="nav">
+			<a href="#features" class="nav-link">Features</a>
+			<a href="#benefits" class="nav-link">Benefits</a>
+			<a href="#how-it-works" class="nav-link">How It Works</a>
+			<a href="#subscribe" class="nav-link">Get Updates</a>
+		</nav>
+	</div>
+</header>
+
+<style>
+	.header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		background: rgba(255, 255, 255, 0.95);
+		backdrop-filter: blur(10px);
+		border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+		z-index: 100;
+		transition: all 0.3s ease;
+	}
+	
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 24px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		height: 72px;
+	}
+	
+	.nav-brand h2 {
+		margin: 0;
+		font-size: 24px;
+		font-weight: 700;
+		background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+	
+	.nav {
+		display: flex;
+		gap: 32px;
+	}
+	
+	.nav-link {
+		text-decoration: none;
+		color: #6b7280;
+		font-weight: 500;
+		transition: color 0.2s ease;
+		position: relative;
+	}
+	
+	.nav-link:hover {
+		color: #6366f1;
+	}
+	
+	.nav-link::after {
+		content: '';
+		position: absolute;
+		bottom: -4px;
+		left: 0;
+		width: 0;
+		height: 2px;
+		background: #6366f1;
+		transition: width 0.3s ease;
+	}
+	
+	.nav-link:hover::after {
+		width: 100%;
+	}
+	
+	@media (max-width: 768px) {
+		.container {
+			padding: 0 16px;
+		}
+		
+		.nav {
+			display: none;
+		}
+	}
+</style>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>LoyaltyWallet - Digital Loyalty Cards for Modern Merchants</title>
+		<meta name="description" content="Create digital loyalty cards that customers can add to their Apple Wallet or Google Pay. Boost customer retention with seamless mobile loyalty programs." />
+		<meta name="keywords" content="loyalty cards, digital wallet, Apple Wallet, Google Pay, customer retention, mobile loyalty" />
+		<meta property="og:title" content="LoyaltyWallet - Digital Loyalty Cards for Modern Merchants" />
+		<meta property="og:description" content="Create digital loyalty cards that customers can add to their Apple Wallet or Google Pay. Boost customer retention with seamless mobile loyalty programs." />
+		<meta property="og:type" content="website" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>
+
+<style>
+	html {
+		scroll-behavior: smooth;
+	}
+	
+	body {
+		margin: 0;
+		font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+		line-height: 1.6;
+		color: #374151;
+		background: #ffffff;
+	}
+	
+	* {
+		box-sizing: border-box;
+	}
+</style>

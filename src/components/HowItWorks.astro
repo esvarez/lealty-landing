@@ -1,0 +1,372 @@
+<section id="how-it-works" class="how-it-works">
+	<div class="container">
+		<div class="section-header">
+			<h2>How It Works</h2>
+			<p>Get your digital loyalty program up and running in three simple steps.</p>
+		</div>
+		<div class="steps-container">
+			<div class="step">
+				<div class="step-number">1</div>
+				<div class="step-content">
+					<h3>Design Your Card</h3>
+					<p>Customize your loyalty card with your brand colors, logo, and rewards structure. Choose from beautiful templates or create from scratch.</p>
+				</div>
+				<div class="step-visual">
+					<div class="design-mockup">
+						<div class="mockup-card">
+							<div class="card-customization">
+								<div class="color-picker">
+									<div class="color-option active" style="background: #6366f1;"></div>
+									<div class="color-option" style="background: #14b8a6;"></div>
+									<div class="color-option" style="background: #f59e0b;"></div>
+								</div>
+								<div class="logo-area">Logo</div>
+								<div class="text-area">Brand Name</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="step">
+				<div class="step-number">2</div>
+				<div class="step-content">
+					<h3>Share with Customers</h3>
+					<p>Generate QR codes or shareable links. Customers can add your loyalty card to their Apple Wallet or Google Pay with one tap.</p>
+				</div>
+				<div class="step-visual">
+					<div class="share-mockup">
+						<div class="qr-code">
+							<div class="qr-pattern">
+								<div class="qr-square"></div>
+								<div class="qr-square"></div>
+								<div class="qr-square"></div>
+								<div class="qr-square"></div>
+								<div class="qr-square"></div>
+								<div class="qr-square"></div>
+								<div class="qr-square"></div>
+								<div class="qr-square"></div>
+								<div class="qr-square"></div>
+							</div>
+						</div>
+						<div class="wallet-buttons">
+							<div class="wallet-btn apple">+ Apple Wallet</div>
+							<div class="wallet-btn google">+ Google Pay</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="step">
+				<div class="step-number">3</div>
+				<div class="step-content">
+					<h3>Track & Engage</h3>
+					<p>Monitor customer activity, send targeted offers, and watch your retention rates soar. All data syncs in real-time.</p>
+				</div>
+				<div class="step-visual">
+					<div class="analytics-mockup">
+						<div class="chart-container">
+							<div class="chart-bar" style="height: 40%"></div>
+							<div class="chart-bar" style="height: 65%"></div>
+							<div class="chart-bar" style="height: 85%"></div>
+							<div class="chart-bar" style="height: 70%"></div>
+							<div class="chart-bar" style="height: 95%"></div>
+						</div>
+						<div class="metrics">
+							<div class="metric">
+								<span class="metric-value">2.3k</span>
+								<span class="metric-label">Active Cards</span>
+							</div>
+							<div class="metric">
+								<span class="metric-value">86%</span>
+								<span class="metric-label">Retention</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.how-it-works {
+		padding: 80px 0;
+		background: #f8fafc;
+	}
+	
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 24px;
+	}
+	
+	.section-header {
+		text-align: center;
+		margin-bottom: 64px;
+	}
+	
+	.section-header h2 {
+		font-size: 36px;
+		font-weight: 700;
+		margin: 0 0 16px;
+		color: #1f2937;
+	}
+	
+	.section-header p {
+		font-size: 20px;
+		color: #6b7280;
+		margin: 0;
+	}
+	
+	.steps-container {
+		display: flex;
+		flex-direction: column;
+		gap: 64px;
+	}
+	
+	.step {
+		display: grid;
+		grid-template-columns: 80px 1fr 1fr;
+		gap: 32px;
+		align-items: center;
+		position: relative;
+	}
+	
+	.step:not(:last-child)::after {
+		content: '';
+		position: absolute;
+		left: 40px;
+		top: 80px;
+		width: 2px;
+		height: 64px;
+		background: linear-gradient(to bottom, #6366f1, transparent);
+	}
+	
+	.step-number {
+		width: 80px;
+		height: 80px;
+		background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 32px;
+		font-weight: 700;
+		color: white;
+		box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+	}
+	
+	.step-content h3 {
+		font-size: 28px;
+		font-weight: 600;
+		margin: 0 0 16px;
+		color: #1f2937;
+	}
+	
+	.step-content p {
+		color: #6b7280;
+		margin: 0;
+		line-height: 1.6;
+		font-size: 18px;
+	}
+	
+	.step-visual {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 32px;
+		background: white;
+		border-radius: 16px;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+	}
+	
+	.design-mockup {
+		width: 100%;
+		max-width: 280px;
+	}
+	
+	.mockup-card {
+		background: white;
+		border-radius: 12px;
+		padding: 20px;
+		border: 2px solid #e5e7eb;
+	}
+	
+	.card-customization {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+	
+	.color-picker {
+		display: flex;
+		gap: 8px;
+	}
+	
+	.color-option {
+		width: 24px;
+		height: 24px;
+		border-radius: 50%;
+		border: 2px solid transparent;
+		cursor: pointer;
+	}
+	
+	.color-option.active {
+		border-color: #1f2937;
+	}
+	
+	.logo-area {
+		height: 40px;
+		background: #f3f4f6;
+		border-radius: 8px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #6b7280;
+		font-size: 14px;
+	}
+	
+	.text-area {
+		height: 32px;
+		background: #f3f4f6;
+		border-radius: 8px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #6b7280;
+		font-size: 14px;
+	}
+	
+	.share-mockup {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 24px;
+	}
+	
+	.qr-code {
+		width: 120px;
+		height: 120px;
+		background: white;
+		border: 2px solid #e5e7eb;
+		border-radius: 8px;
+		padding: 16px;
+	}
+	
+	.qr-pattern {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 4px;
+		height: 100%;
+	}
+	
+	.qr-square {
+		background: #1f2937;
+		border-radius: 2px;
+	}
+	
+	.qr-square:nth-child(2n) {
+		background: transparent;
+	}
+	
+	.wallet-buttons {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+	
+	.wallet-btn {
+		padding: 8px 16px;
+		border-radius: 8px;
+		font-size: 14px;
+		font-weight: 500;
+		text-align: center;
+		color: white;
+	}
+	
+	.wallet-btn.apple {
+		background: #000;
+	}
+	
+	.wallet-btn.google {
+		background: #4285f4;
+	}
+	
+	.analytics-mockup {
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+		width: 100%;
+		max-width: 280px;
+	}
+	
+	.chart-container {
+		display: flex;
+		align-items: end;
+		gap: 8px;
+		height: 120px;
+	}
+	
+	.chart-bar {
+		background: linear-gradient(to top, #6366f1, #8b5cf6);
+		border-radius: 4px 4px 0 0;
+		flex: 1;
+		animation: grow 2s ease-out;
+	}
+	
+	@keyframes grow {
+		from { height: 0; }
+	}
+	
+	.metrics {
+		display: flex;
+		justify-content: space-between;
+	}
+	
+	.metric {
+		text-align: center;
+	}
+	
+	.metric-value {
+		display: block;
+		font-size: 24px;
+		font-weight: 700;
+		color: #6366f1;
+	}
+	
+	.metric-label {
+		font-size: 12px;
+		color: #6b7280;
+	}
+	
+	@media (max-width: 768px) {
+		.how-it-works {
+			padding: 60px 0;
+		}
+		
+		.container {
+			padding: 0 16px;
+		}
+		
+		.section-header h2 {
+			font-size: 28px;
+		}
+		
+		.step {
+			grid-template-columns: 1fr;
+			gap: 24px;
+			text-align: center;
+		}
+		
+		.step:not(:last-child)::after {
+			display: none;
+		}
+		
+		.step-content h3 {
+			font-size: 24px;
+		}
+		
+		.step-content p {
+			font-size: 16px;
+		}
+	}
+</style>

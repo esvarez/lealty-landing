@@ -1,0 +1,157 @@
+<section id="benefits" class="benefits">
+	<div class="container">
+		<div class="section-header">
+			<h2>Why Choose Digital Loyalty Cards?</h2>
+			<p>Discover the powerful benefits that make digital loyalty cards the smart choice for modern businesses.</p>
+		</div>
+		<div class="benefits-grid">
+			<div class="benefit-card">
+				<div class="benefit-icon">📱</div>
+				<h3>Native Wallet Integration</h3>
+				<p>Seamlessly integrate with Apple Wallet and Google Pay. Customers can add loyalty cards with one tap and access them instantly.</p>
+			</div>
+			<div class="benefit-card">
+				<div class="benefit-icon">🎯</div>
+				<h3>Automated Engagement</h3>
+				<p>Send push notifications, location-based reminders, and personalized offers directly to customers' lock screens.</p>
+			</div>
+			<div class="benefit-card">
+				<div class="benefit-icon">📊</div>
+				<h3>Real-Time Analytics</h3>
+				<p>Track customer behavior, visit patterns, and campaign performance with detailed insights and reporting.</p>
+			</div>
+			<div class="benefit-card">
+				<div class="benefit-icon">💰</div>
+				<h3>Increase Revenue</h3>
+				<p>Boost repeat visits by 3x and increase customer lifetime value with targeted rewards and promotions.</p>
+			</div>
+			<div class="benefit-card">
+				<div class="benefit-icon">🌱</div>
+				<h3>Eco-Friendly</h3>
+				<p>Eliminate plastic cards and reduce environmental impact while providing a superior customer experience.</p>
+			</div>
+			<div class="benefit-card">
+				<div class="benefit-icon">⚡</div>
+				<h3>Instant Setup</h3>
+				<p>Launch your loyalty program in minutes, not months. No app downloads or complicated setup required.</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.benefits {
+		padding: 80px 0;
+		background: white;
+	}
+	
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 24px;
+	}
+	
+	.section-header {
+		text-align: center;
+		margin-bottom: 64px;
+	}
+	
+	.section-header h2 {
+		font-size: 36px;
+		font-weight: 700;
+		margin: 0 0 16px;
+		color: #1f2937;
+	}
+	
+	.section-header p {
+		font-size: 20px;
+		color: #6b7280;
+		margin: 0;
+		max-width: 600px;
+		margin: 0 auto;
+	}
+	
+	.benefits-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+		gap: 32px;
+	}
+	
+	.benefit-card {
+		background: white;
+		padding: 32px;
+		border-radius: 16px;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+		border: 1px solid #f3f4f6;
+		transition: all 0.3s ease;
+		position: relative;
+		overflow: hidden;
+	}
+	
+	.benefit-card::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 4px;
+		background: linear-gradient(90deg, #6366f1, #8b5cf6);
+		transform: translateX(-100%);
+		transition: transform 0.3s ease;
+	}
+	
+	.benefit-card:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 12px 24px rgba(99, 102, 241, 0.15);
+	}
+	
+	.benefit-card:hover::before {
+		transform: translateX(0);
+	}
+	
+	.benefit-icon {
+		font-size: 48px;
+		margin-bottom: 20px;
+		display: block;
+	}
+	
+	.benefit-card h3 {
+		font-size: 24px;
+		font-weight: 600;
+		margin: 0 0 16px;
+		color: #1f2937;
+	}
+	
+	.benefit-card p {
+		color: #6b7280;
+		margin: 0;
+		line-height: 1.6;
+	}
+	
+	@media (max-width: 768px) {
+		.benefits {
+			padding: 60px 0;
+		}
+		
+		.container {
+			padding: 0 16px;
+		}
+		
+		.section-header h2 {
+			font-size: 28px;
+		}
+		
+		.section-header p {
+			font-size: 18px;
+		}
+		
+		.benefits-grid {
+			grid-template-columns: 1fr;
+			gap: 24px;
+		}
+		
+		.benefit-card {
+			padding: 24px;
+		}
+	}
+</style>
