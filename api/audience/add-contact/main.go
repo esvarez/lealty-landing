@@ -2,10 +2,12 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
+
+	"github.com/esvarez/lealty-landing/internal/web"
 
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/resend/resend-go/v2"
@@ -24,8 +26,7 @@ func newHandler(resendClient *resend.Client) *Handler {
 func main() {
 	resendAPIKey := os.Getenv("RESEND_API_KEY")
 	if resendAPIKey == "" {
-		log.Println("ERROR: RESEND_API_KEY environment variable not set")
-		return
+		panic("ERROR: RESEND_API_KEY environment variable not set")
 	}
 
 	resendClient := resend.NewClient(resendAPIKey)
@@ -37,66 +38,42 @@ func main() {
 
 // Request represents the incoming Lambda request
 type Request struct {
-	Email     string `json:"email"`
-	FirstName string `json:"firstName,omitempty"`
-	LastName  string `json:"lastName,omitempty"`
-	Audience  string `json:"audience,omitempty"`
+	Email string `json:"email"`
 }
 
 // Response represents the Lambda response
 type Response struct {
-	StatusCode int               `json:"statusCode"`
-	Body       string            `json:"body"`
-	Headers    map[string]string `json:"headers"`
+	Status string `json:"status"`
 }
 
-// ResendContact represents the contact data to send to Resend
-type ResendContact struct {
-	Email        string `json:"email"`
-	FirstName    string `json:"firstName,omitempty"`
-	LastName     string `json:"lastName,omitempty"`
-	Audience     string `json:"audience,omitempty"`
-	Unsubscribed bool   `json:"unsubscribed"`
-	CreatedAt    string `json:"createdAt"`
-}
-
-// ResendResponse represents the response from Resend API
-type ResendResponse struct {
-	ID string `json:"id"`
-}
-
-// ErrorResponse represents an error response
-type ErrorResponse struct {
-	Error   string `json:"error"`
-	Message string `json:"message"`
-}
-
-func (h *Handler) handleRequest(ctx context.Context, request Request) (Response, error) {
+func (h *Handler) handleRequest(_ context.Context, req web.Request) (web.Response, error) {
 	// Validate required fields
+	request := &Request{}
+
+	if err := json.Unmarshal([]byte(req.Body), request); err != nil {
+		return web.Error(fmt.Sprintf("failed to decode request: %v", err), http.StatusBadRequest), nil
+	}
+
 	if request.Email == "" {
-		log.Println("ERROR: Email is required")
-		return createErrorResponse(http.StatusBadRequest, "Email is required"), nil
+		return web.Error("email is required", http.StatusBadRequest), nil
 	}
 
 	// Set default audience if not provided
-	audience := request.Audience
+	audience := os.Getenv("AUDIENCE_ID")
 	if audience == "" {
-		audience = "default"
+		return web.Error("audience is required", http.StatusBadRequest), nil
 	}
 
 	params := &resend.CreateContactRequest{
-		Email:        "steve.wozniak@gmail.com",
-		FirstName:    "Steve",
-		LastName:     "Wozniak",
+		Email:        request.Email,
 		Unsubscribed: false,
-		AudienceId:   "78261eea-8f8b-4381-83c6-79fa7120f1cf",
+		AudienceId:   audience,
 	}
 
-	contact, err := h.resendClient.Contacts.Create(params)
+	_, err := h.resendClient.Contacts.Create(params)
 	if err != nil {
-		log.Printf("ERROR: Failed to create contact: %v", err)
-		return createErrorResponse(http.StatusInternalServerError, "Failed to create contact"), nil
+		return web.Error(fmt.Sprintf("failed to create contact: %v", err), http.StatusInternalServerError), nil
 	}
 
-	return createErrorResponse(resp.StatusCode, fmt.Sprintf("Failed to add contact: %s", string(body))), nil
+	return web.JsonResponse(&Response{Status: "success"}, http.StatusCreated), nil
 }
