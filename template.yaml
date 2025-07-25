@@ -1,0 +1,74 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: "Landing serverless application" 
+
+Parameters:
+  env: 
+    Description: "Environment to deploy"
+    Type: String
+    Default: "dev"
+    AllowedValues:
+      - dev
+      - prod
+  secretName:
+    Description: "Secret name"
+    Type: String
+    Default: ""
+    NoEcho: true
+  region:
+    Description: "Region"
+    Type: String
+    Default: "us-west-1"
+    NoEcho: true
+  allowedDomains:
+    Description: "Allowed domains"
+    Type: CommaDelimitedList
+    Default: ""
+    NoEcho: true
+
+# Conditions:
+#   IsProd: !Equals [!Ref env, "prod"]
+
+Globals:
+  Function:
+    Timeout: 30
+    Architectures:
+      - x86_64
+
+Resources:
+
+  GatewayApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: !Ref env
+      CacheClusterEnabled: false 
+      CacheClusterSize: '0.5'
+      Cors:
+        AllowMethods:
+          - 'GET'
+          - 'POST'
+          - 'PUT'
+          - 'DELETE'
+          - 'PATCH'
+          - 'OPTIONS'
+        AllowHeaders: "'*'"
+        AllowOrigin: "'*'"
+
+  AddContactFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./api/audience/add-contact/function.zip
+      Handler: bootstrap
+      Runtime: provided.al2
+      Environment:
+        Variables:
+          SECRET_NAME: !Ref secretName
+          ALLOWED_DOMAINS: !Ref allowedDomains
+          REGION: !Ref region
+      Events:
+        AddContact:
+          Type: Api
+          Properties:
+            Path: /audience/add-contact
+            Method: post
+            RestApiId: !Ref GatewayApi
