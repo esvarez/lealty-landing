@@ -10,28 +10,35 @@ import (
 	"github.com/esvarez/lealty-landing/internal/web"
 
 	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
 	"github.com/resend/resend-go/v2"
 )
 
 type Handler struct {
 	resendClient *resend.Client
+	audienceId   string
 }
 
-func newHandler(resendClient *resend.Client) *Handler {
+func newHandler(resendClient *resend.Client, audienceId string) *Handler {
 	return &Handler{
 		resendClient: resendClient,
+		audienceId:   audienceId,
 	}
 }
 
 func main() {
-	resendAPIKey := os.Getenv("RESEND_API_KEY")
-	if resendAPIKey == "" {
-		panic("ERROR: RESEND_API_KEY environment variable not set")
+	secretName := os.Getenv("SECRET_NAME")
+	region := os.Getenv("REGION")
+	if secretName == "" || region == "" {
+		panic("ERROR: SECRET_NAME or REGION environment variable not set")
 	}
 
-	resendClient := resend.NewClient(resendAPIKey)
+	secret := getSecret(secretName, region)
 
-	handler := newHandler(resendClient)
+	resendClient := resend.NewClient(secret.ResendAPIKey)
+
+	handler := newHandler(resendClient, secret.AudienceId)
 
 	lambda.Start(handler)
 }
@@ -44,6 +51,12 @@ type Request struct {
 // Response represents the Lambda response
 type Response struct {
 	Status string `json:"status"`
+}
+
+// Secret represents the secret stored in AWS Secrets Manager
+type Secret struct {
+	ResendAPIKey string `json:"RESEND_API_KEY"`
+	AudienceId   string `json:"AUDIENCE_ID"`
 }
 
 func (h *Handler) handleRequest(_ context.Context, req web.Request) (web.Response, error) {
@@ -76,4 +89,29 @@ func (h *Handler) handleRequest(_ context.Context, req web.Request) (web.Respons
 	}
 
 	return web.JsonResponse(&Response{Status: "success"}, http.StatusCreated), nil
+}
+
+func getSecret(secretName string, region string) *Secret {
+	config, err := config.LoadDefaultConfig(context.TODO(), config.WithRegion(region))
+	if err != nil {
+		panic("ERROR: Failed to load AWS config")
+	}
+
+	svc := secretsmanager.NewFromConfig(config)
+	input := &secretsmanager.GetSecretValueInput{
+		SecretId: &secretName,
+	}
+
+	result, err := svc.GetSecretValue(context.TODO(), input)
+	if err != nil {
+		panic("ERROR: Failed to get secret")
+	}
+
+	secret := &Secret{}
+	err = json.Unmarshal([]byte(*result.SecretString), secret)
+	if err != nil {
+		panic("ERROR: Failed to unmarshal secret")
+	}
+
+	return secret
 }
