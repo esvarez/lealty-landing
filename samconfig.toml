@@ -1,0 +1,23 @@
+version = 0.1
+[dev.deploy.parameters]
+stack_name = "lealty-landing"
+resolve_s3 = false
+s3_prefix = "lealty-landing-dev"
+s3_bucket = "sam-managed-lealty-landing"
+region = "us-west-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+parameters_overrides = "env=\"dev\""
+image_repositories = []
+
+# You can also add different configurations for different environments
+[prod.deploy.parameters]
+stack_name = "lealty-landing-prod"
+resolve_s3 = false
+s3_prefix = "lealty-landing"
+s3_bucket = "sam-managed-lealty-landing"
+region = "us-west-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+parameters_overrides = "env=\"prod\""
+image_repositories = []
