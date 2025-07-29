@@ -1,0 +1,377 @@
+<section id="subscribe" class="subscribe">
+	<div class="container">
+		<div class="subscribe-card">
+			<div class="subscribe-content">
+				<h2>Obtener Acceso Anticipado</h2>
+				<p>Sé el primero en saber cuándo LoyaltyWallet se lance. Únete a nuestro programa beta exclusivo y obtén 3 meses gratis cuando salgamos al mercado.</p>
+				<form class="subscribe-form" id="subscribeForm">
+					<div class="form-group">
+						<input type="email" id="email" placeholder="Ingresa tu dirección de email" required>
+						<button type="submit" class="submit-btn">
+							<span class="btn-text">Obtener Acceso Anticipado</span>
+							<span class="btn-loading">Suscribiendo...</span>
+						</button>
+					</div>
+					<div class="form-features">
+						<div class="feature-check">
+							<svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+								<path d="M13.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.793l6.646-6.647a.5.5 0 0 1 .708 0z" fill="#10b981"/>
+							</svg>
+							<span>3 meses de acceso gratuito</span>
+						</div>
+						<div class="feature-check">
+							<svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+								<path d="M13.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.793l6.646-6.647a.5.5 0 0 1 .708 0z" fill="#10b981"/>
+							</svg>
+							<span>Soporte prioritario</span>
+						</div>
+						<div class="feature-check">
+							<svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+								<path d="M13.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.793l6.646-6.647a.5.5 0 0 1 .708 0z" fill="#10b981"/>
+							</svg>
+							<span>Características beta exclusivas</span>
+						</div>
+					</div>
+				</form>
+				<div class="success-message" id="successMessage">
+					<div class="success-icon">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+							<path d="M20 6L9 17L4 12" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</div>
+					<h3>¡Gracias por suscribirte!</h3>
+					<p>Te notificaremos tan pronto como LoyaltyWallet esté listo. Revisa tu email para confirmación.</p>
+				</div>
+			</div>
+			<div class="subscribe-visual">
+				<div class="notification-stack">
+					<div class="notification">
+						<div class="notification-icon">🎉</div>
+						<div class="notification-content">
+							<h4>¡Bienvenido a LoyaltyWallet!</h4>
+							<p>Tu acceso beta está confirmado</p>
+						</div>
+					</div>
+					<div class="notification">
+						<div class="notification-icon">📱</div>
+						<div class="notification-content">
+							<h4>¡La App está Lista!</h4>
+							<p>Comienza a crear tarjetas de fidelidad ahora</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	document.getElementById('subscribeForm').addEventListener('submit', function(e) {
+		e.preventDefault();
+		
+		const form = this;
+		const email = document.getElementById('email').value;
+		const submitBtn = form.querySelector('.submit-btn');
+		const successMessage = document.getElementById('successMessage');
+		
+		// Show loading state
+		submitBtn.classList.add('loading');
+		
+		// Make API call to subscribe endpoint
+		fetch('/api/subscribe', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ email: email })
+		})
+		.then(response => response.json())
+		.then(data => {
+			if (data.success) {
+				// Hide form and show success message
+				form.style.display = 'none';
+				successMessage.style.display = 'block';
+				
+				// Update success message with response
+				const successText = successMessage.querySelector('p');
+				successText.textContent = data.message || 'Te notificaremos tan pronto como LoyaltyWallet esté listo. Revisa tu email para confirmación.';
+			} else {
+				// Show error message
+				alert(data.error || 'Algo salió mal. Por favor intenta de nuevo.');
+			}
+		})
+		.catch(error => {
+			console.error('Subscription error:', error);
+			alert('Error de red. Por favor revisa tu conexión e intenta de nuevo.');
+		})
+		.finally(() => {
+			// Reset form and button state
+			form.reset();
+			submitBtn.classList.remove('loading');
+		});
+	});
+</script>
+
+<style>
+	.subscribe {
+		padding: 80px 0;
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		position: relative;
+		overflow: hidden;
+	}
+	
+	.subscribe::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+		pointer-events: none;
+	}
+	
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 24px;
+	}
+	
+	.subscribe-card {
+		background: white;
+		border-radius: 24px;
+		padding: 48px;
+		box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 48px;
+		align-items: center;
+		position: relative;
+	}
+	
+	.subscribe-content h2 {
+		font-size: 36px;
+		font-weight: 700;
+		margin: 0 0 16px;
+		color: #1f2937;
+	}
+	
+	.subscribe-content p {
+		font-size: 18px;
+		color: #6b7280;
+		margin: 0 0 32px;
+		line-height: 1.6;
+	}
+	
+	.subscribe-form {
+		position: relative;
+	}
+	
+	.form-group {
+		display: flex;
+		gap: 16px;
+		margin-bottom: 24px;
+	}
+	
+	.form-group input {
+		flex: 1;
+		padding: 16px 20px;
+		border: 2px solid #e5e7eb;
+		border-radius: 12px;
+		font-size: 16px;
+		outline: none;
+		transition: border-color 0.3s ease;
+	}
+	
+	.form-group input:focus {
+		border-color: #6366f1;
+		box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+	}
+	
+	.submit-btn {
+		padding: 16px 32px;
+		background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+		color: white;
+		border: none;
+		border-radius: 12px;
+		font-size: 16px;
+		font-weight: 600;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		position: relative;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+	
+	.submit-btn:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+	}
+	
+	.submit-btn.loading {
+		pointer-events: none;
+	}
+	
+	.btn-text,
+	.btn-loading {
+		transition: opacity 0.3s ease;
+	}
+	
+	.btn-loading {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		opacity: 0;
+	}
+	
+	.submit-btn.loading .btn-text {
+		opacity: 0;
+	}
+	
+	.submit-btn.loading .btn-loading {
+		opacity: 1;
+	}
+	
+	.form-features {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+	
+	.feature-check {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		color: #6b7280;
+		font-size: 14px;
+	}
+	
+	.success-message {
+		display: none;
+		text-align: center;
+		padding: 32px;
+		background: #f0fdf4;
+		border-radius: 16px;
+		border: 1px solid #bbf7d0;
+	}
+	
+	.success-icon {
+		width: 48px;
+		height: 48px;
+		background: #10b981;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 0 auto 16px;
+	}
+	
+	.success-message h3 {
+		font-size: 20px;
+		font-weight: 600;
+		color: #1f2937;
+		margin: 0 0 8px;
+	}
+	
+	.success-message p {
+		color: #6b7280;
+		margin: 0;
+		font-size: 16px;
+	}
+	
+	.subscribe-visual {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.notification-stack {
+		position: relative;
+		width: 100%;
+		max-width: 300px;
+	}
+	
+	.notification {
+		background: white;
+		border-radius: 16px;
+		padding: 20px;
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		margin-bottom: 16px;
+		animation: slideIn 0.8s ease-out;
+	}
+	
+	.notification:last-child {
+		margin-bottom: 0;
+		animation-delay: 0.4s;
+		animation-fill-mode: both;
+	}
+	
+	@keyframes slideIn {
+		from {
+			transform: translateX(100%);
+			opacity: 0;
+		}
+		to {
+			transform: translateX(0);
+			opacity: 1;
+		}
+	}
+	
+	.notification-icon {
+		font-size: 24px;
+		width: 48px;
+		height: 48px;
+		background: #f3f4f6;
+		border-radius: 12px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+	}
+	
+	.notification-content h4 {
+		font-size: 16px;
+		font-weight: 600;
+		margin: 0 0 4px;
+		color: #1f2937;
+	}
+	
+	.notification-content p {
+		font-size: 14px;
+		color: #6b7280;
+		margin: 0;
+	}
+	
+	@media (max-width: 768px) {
+		.subscribe {
+			padding: 60px 0;
+		}
+		
+		.container {
+			padding: 0 16px;
+		}
+		
+		.subscribe-card {
+			grid-template-columns: 1fr;
+			gap: 32px;
+			padding: 32px 24px;
+		}
+		
+		.subscribe-content h2 {
+			font-size: 28px;
+		}
+		
+		.form-group {
+			flex-direction: column;
+			gap: 12px;
+		}
+		
+		.submit-btn {
+			width: 100%;
+		}
+	}
+</style>

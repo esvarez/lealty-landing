@@ -1,0 +1,159 @@
+<footer class="footer">
+	<div class="container">
+		<div class="footer-content">
+			<div class="footer-brand">
+				<h3>LoyaltyWallet</h3>
+				<p>Transformando la fidelidad del cliente con integración de billetera digital. Construido para negocios modernos que valoran la experiencia del cliente.</p>
+			</div>
+			<div class="footer-links">
+				<div class="link-group">
+					<h4>Producto</h4>
+					<a href="#features">Características</a>
+					<a href="#benefits">Beneficios</a>
+					<a href="#pricing">Precios</a>
+					<a href="#how-it-works">Cómo Funciona</a>
+				</div>
+				<div class="link-group">
+					<h4>Empresa</h4>
+					<a href="#about">Acerca de</a>
+					<a href="#blog">Blog</a>
+					<a href="#careers">Carreras</a>
+				</div>
+				<div class="link-group">
+					<h4>Soporte</h4>
+					<a href="#help">Centro de Ayuda</a>
+					<a href="#contact">Contacto</a>
+					<a href="#status">Estado</a>
+				</div>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<p>&copy; 2025 LoyaltyWallet. Todos los derechos reservados.</p>
+			<div class="footer-legal">
+				<a href="#privacy">Política de Privacidad</a>
+				<a href="#terms">Términos de Servicio</a>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<style>
+	.footer {
+		background: #1f2937;
+		color: white;
+		padding: 64px 0 32px;
+	}
+	
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 24px;
+	}
+	
+	.footer-content {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 64px;
+		margin-bottom: 48px;
+	}
+	
+	.footer-brand h3 {
+		font-size: 24px;
+		font-weight: 700;
+		margin: 0 0 16px;
+		background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+	
+	.footer-brand p {
+		color: #d1d5db;
+		margin: 0;
+		line-height: 1.6;
+		max-width: 400px;
+	}
+	
+	.footer-links {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 32px;
+	}
+	
+	.link-group h4 {
+		font-size: 16px;
+		font-weight: 600;
+		margin: 0 0 16px;
+		color: white;
+	}
+	
+	.link-group a {
+		display: block;
+		color: #d1d5db;
+		text-decoration: none;
+		margin-bottom: 8px;
+		transition: color 0.2s ease;
+	}
+	
+	.link-group a:hover {
+		color: #6366f1;
+	}
+	
+	.footer-bottom {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-top: 32px;
+		border-top: 1px solid #374151;
+	}
+	
+	.footer-bottom p {
+		color: #9ca3af;
+		margin: 0;
+	}
+	
+	.footer-legal {
+		display: flex;
+		gap: 24px;
+	}
+	
+	.footer-legal a {
+		color: #9ca3af;
+		text-decoration: none;
+		transition: color 0.2s ease;
+	}
+	
+	.footer-legal a:hover {
+		color: #6366f1;
+	}
+	
+	@media (max-width: 768px) {
+		.footer {
+			padding: 48px 0 24px;
+		}
+		
+		.container {
+			padding: 0 16px;
+		}
+		
+		.footer-content {
+			grid-template-columns: 1fr;
+			gap: 32px;
+		}
+		
+		.footer-links {
+			grid-template-columns: 1fr;
+			gap: 24px;
+		}
+		
+		.footer-bottom {
+			flex-direction: column;
+			gap: 16px;
+			text-align: center;
+		}
+		
+		.footer-legal {
+			gap: 16px;
+		}
+	}
+</style>
