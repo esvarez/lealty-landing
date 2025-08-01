@@ -150,17 +150,21 @@
 	.step-number::after {
 		content: '';
 		position: absolute;
-		top: 100%;
+		bottom: 100%;
 		left: 50%;
 		transform: translateX(-50%);
 		width: 3px;
-		height: 80px;
-		background: linear-gradient(to bottom, #6366f1, #e5e7eb);
+		height: 260px;
+		background: linear-gradient(to top, #6366f1, #e5e7eb);
 		z-index: 1;
 	}
 	
-	.step:last-child .step-number::after {
+	.step:first-child .step-number::after {
 		display: none;
+	}
+	
+	.step:last-child .step-number::after {
+		display: block;
 	}
 	
 	.step-content h3 {
