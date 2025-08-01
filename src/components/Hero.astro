@@ -5,8 +5,24 @@
 				<h1>Transform Your Business with Digital Loyalty Cards</h1>
 				<p>Create beautiful loyalty cards that customers can add to their Apple Wallet or Google Pay. Boost retention, increase visits, and grow your revenue with seamless mobile loyalty programs.</p>
 				<div class="hero-buttons">
-					<a href="#subscribe" class="btn-primary">Get Early Access</a>
+					<form class="hero-signup-form" id="heroSubscribeForm">
+						<div class="signup-group">
+							<input type="email" id="heroEmail" placeholder="Enter your email address" required>
+							<button type="submit" class="btn-primary">
+								<span class="btn-text">Get Early Access</span>
+								<span class="btn-loading">Subscribing...</span>
+							</button>
+						</div>
+					</form>
 					<a href="#how-it-works" class="btn-secondary">See How It Works</a>
+					<div class="hero-success-message" id="heroSuccessMessage">
+						<div class="success-icon">
+							<svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+								<path d="M16.667 5L7.5 14.167L3.333 10" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+						</div>
+						<span>Thank you! We'll notify you when LoyaltyWallet is ready.</span>
+					</div>
 				</div>
 				<div class="hero-stats">
 					<div class="stat">
@@ -47,6 +63,53 @@
 		</div>
 	</div>
 </section>
+
+<script>
+	document.getElementById('heroSubscribeForm').addEventListener('submit', function(e) {
+		e.preventDefault();
+		
+		const form = this;
+		const email = document.getElementById('heroEmail').value;
+		const submitBtn = form.querySelector('.btn-primary');
+		const successMessage = document.getElementById('heroSuccessMessage');
+		
+		// Show loading state
+		submitBtn.classList.add('loading');
+		
+		// Make API call to subscribe endpoint
+		fetch('/api/subscribe', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ email: email })
+		})
+		.then(response => response.json())
+		.then(data => {
+			if (data.success) {
+				// Hide form and show success message
+				form.style.display = 'none';
+				successMessage.style.display = 'flex';
+				
+				// Update success message with response
+				const successText = successMessage.querySelector('span');
+				successText.textContent = data.message || 'Thank you! We\'ll notify you when LoyaltyWallet is ready.';
+			} else {
+				// Show error message
+				alert(data.error || 'Something went wrong. Please try again.');
+			}
+		})
+		.catch(error => {
+			console.error('Subscription error:', error);
+			alert('Network error. Please check your connection and try again.');
+		})
+		.finally(() => {
+			// Reset form and button state
+			form.reset();
+			submitBtn.classList.remove('loading');
+		});
+	});
+</script>
 
 <style>
 	.hero {
@@ -97,23 +160,64 @@
 	
 	.hero-buttons {
 		display: flex;
+		flex-direction: column;
 		gap: 16px;
 		margin-bottom: 48px;
+	}
+	
+	.hero-signup-form {
+		width: 100%;
+	}
+	
+	.signup-group {
+		display: flex;
+		gap: 12px;
+		background: white;
+		padding: 4px;
+		border-radius: 8px;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		border: 1px solid #e5e7eb;
+		max-width: 400px;
+	}
+	
+	.signup-group input {
+		flex: 1;
+		padding: 8px 12px;
+		border: none;
+		border-radius: 4px;
+		font-size: 14px;
+		outline: none;
+		background: transparent;
+		color: #374151;
+	}
+	
+	.signup-group input::placeholder {
+		color: #9ca3af;
+	}
+	
+	.signup-group input:focus {
+		outline: none;
 	}
 	
 	.btn-primary {
 		display: inline-flex;
 		align-items: center;
-		padding: 12px 24px;
+		justify-content: center;
+		padding: 8px 20px;
 		background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
 		color: white;
 		text-decoration: none;
-		border-radius: 8px;
+		border: none;
+		border-radius: 4px;
 		font-weight: 500;
 		font-size: 14px;
 		transition: all 0.3s ease;
 		box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2);
-		border: 1px solid rgba(255, 255, 255, 0.1);
+		cursor: pointer;
+		position: relative;
+		overflow: hidden;
+		white-space: nowrap;
+		min-width: 140px;
 	}
 	
 	.btn-primary:hover {
@@ -121,9 +225,35 @@
 		box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
 	}
 	
+	.btn-primary.loading {
+		pointer-events: none;
+	}
+	
+	.btn-text,
+	.btn-loading {
+		transition: opacity 0.3s ease;
+	}
+	
+	.btn-loading {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		opacity: 0;
+	}
+	
+	.btn-primary.loading .btn-text {
+		opacity: 0;
+	}
+	
+	.btn-primary.loading .btn-loading {
+		opacity: 1;
+	}
+	
 	.btn-secondary {
 		display: inline-flex;
 		align-items: center;
+		justify-content: center;
 		padding: 12px 24px;
 		background: white;
 		color: #6366f1;
@@ -134,12 +264,38 @@
 		border: 1px solid #e5e7eb;
 		transition: all 0.3s ease;
 		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+		max-width: 200px;
 	}
 	
 	.btn-secondary:hover {
 		border-color: #6366f1;
 		transform: translateY(-1px);
 		box-shadow: 0 2px 8px rgba(99, 102, 241, 0.15);
+	}
+	
+	.hero-success-message {
+		display: none;
+		align-items: center;
+		gap: 8px;
+		padding: 12px 16px;
+		background: #f0fdf4;
+		border: 1px solid #bbf7d0;
+		border-radius: 8px;
+		color: #166534;
+		font-size: 14px;
+		font-weight: 500;
+		max-width: 400px;
+	}
+	
+	.success-icon {
+		width: 20px;
+		height: 20px;
+		background: #10b981;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
 	}
 	
 	.hero-stats {
@@ -293,8 +449,12 @@
 		}
 		
 		.hero-buttons {
-			flex-direction: column;
 			align-items: center;
+		}
+		
+		.signup-group {
+			flex-direction: column;
+			gap: 8px;
 		}
 		
 		.hero-stats {
