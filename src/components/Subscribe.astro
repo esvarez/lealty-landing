@@ -77,16 +77,38 @@
 		// Show loading state
 		submitBtn.classList.add('loading');
 		
-		// Simulate API call
-		setTimeout(() => {
-			// Hide form and show success message
-			form.style.display = 'none';
-			successMessage.style.display = 'block';
-			
-			// Reset form
+		// Make API call to subscribe endpoint
+		fetch('/api/subscribe', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ email: email })
+		})
+		.then(response => response.json())
+		.then(data => {
+			if (data.success) {
+				// Hide form and show success message
+				form.style.display = 'none';
+				successMessage.style.display = 'block';
+				
+				// Update success message with response
+				const successText = successMessage.querySelector('p');
+				successText.textContent = data.message || 'We\'ll notify you as soon as LoyaltyWallet is ready. Check your email for confirmation.';
+			} else {
+				// Show error message
+				alert(data.error || 'Something went wrong. Please try again.');
+			}
+		})
+		.catch(error => {
+			console.error('Subscription error:', error);
+			alert('Network error. Please check your connection and try again.');
+		})
+		.finally(() => {
+			// Reset form and button state
 			form.reset();
 			submitBtn.classList.remove('loading');
-		}, 2000);
+		});
 	});
 </script>
 

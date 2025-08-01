@@ -12,6 +12,37 @@ npm create astro@latest -- --template basics
 
 ![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
 
+## Mailchimp Integration Setup
+
+To enable email collection with Mailchimp:
+
+1. **Get your Mailchimp API Key:**
+   - Log in to your Mailchimp account
+   - Go to Account → Extras → API keys
+   - Create a new API key or copy an existing one
+
+2. **Find your Server Prefix:**
+   - Look at the end of your API key (e.g., `abc123-us1`)
+   - The server prefix is the part after the dash (e.g., `us1`)
+
+3. **Get your Audience ID:**
+   - Go to Audience → All contacts → Settings → Audience name and defaults
+   - Copy the Audience ID
+
+4. **Set up environment variables:**
+   - Copy `.env.example` to `.env`
+   - Fill in your Mailchimp credentials:
+     ```
+     MAILCHIMP_API_KEY=your_api_key_here
+     MAILCHIMP_SERVER_PREFIX=us1
+     MAILCHIMP_AUDIENCE_ID=your_audience_id_here
+     ```
+
+5. **Test the integration:**
+   - Start the development server: `npm run dev`
+   - Try subscribing with a test email address
+   - Check your Mailchimp audience to confirm the subscriber was added
+
 ## 🚀 Project Structure
 
 Inside of your Astro project, you'll see the following folders and files:
