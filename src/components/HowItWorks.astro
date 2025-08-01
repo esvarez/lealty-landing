@@ -131,16 +131,6 @@
 		position: relative;
 	}
 	
-	.step:not(:last-child)::after {
-		content: '';
-		position: absolute;
-		left: 40px;
-		top: 80px;
-		width: 2px;
-		height: 64px;
-		background: linear-gradient(to bottom, #6366f1, transparent);
-	}
-	
 	.step-number {
 		width: 80px;
 		height: 80px;
@@ -153,6 +143,24 @@
 		font-weight: 700;
 		color: white;
 		box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+		position: relative;
+		z-index: 2;
+	}
+	
+	.step-number::after {
+		content: '';
+		position: absolute;
+		top: 100%;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 3px;
+		height: 80px;
+		background: linear-gradient(to bottom, #6366f1, #e5e7eb);
+		z-index: 1;
+	}
+	
+	.step:last-child .step-number::after {
+		display: none;
 	}
 	
 	.step-content h3 {
