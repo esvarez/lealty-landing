@@ -3,7 +3,7 @@
 		<div class="subscribe-card">
 			<div class="subscribe-content">
 				<h2>Get Early Access</h2>
-				<p>Be the first to know when LoyaltyWallet launches. Join our exclusive beta program and get 3 months free when we go live.</p>
+				<p>Be the first to know when Lealty launches. Join our exclusive beta program and get 3 months free when we go live.</p>
 				<form class="subscribe-form" id="subscribeForm">
 					<div class="form-group">
 						<input type="email" id="email" placeholder="Enter your email address" required>
@@ -40,7 +40,7 @@
 						</svg>
 					</div>
 					<h3>Thank you for subscribing!</h3>
-					<p>We'll notify you as soon as LoyaltyWallet is ready. Check your email for confirmation.</p>
+					<p>We'll notify you as soon as Lealty is ready. Check your email for confirmation.</p>
 				</div>
 			</div>
 			<div class="subscribe-visual">
@@ -48,7 +48,7 @@
 					<div class="notification">
 						<div class="notification-icon">🎉</div>
 						<div class="notification-content">
-							<h4>Welcome to LoyaltyWallet!</h4>
+							<h4>Welcome to Lealty!</h4>
 							<p>Your beta access is confirmed</p>
 						</div>
 					</div>
@@ -66,56 +66,62 @@
 </section>
 
 <script>
-	document.getElementById('subscribeForm').addEventListener('submit', function(e) {
-		e.preventDefault();
-		
-		const form = this;
-		const email = document.getElementById('email').value;
-		const submitBtn = form.querySelector('.submit-btn');
-		const successMessage = document.getElementById('successMessage');
-		
-		// Show loading state
-		submitBtn.classList.add('loading');
-		
-		// Make API call to subscribe endpoint
-		fetch('/api/subscribe', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ email: email })
-		})
-		.then(response => response.json())
-		.then(data => {
-			if (data.success) {
-				// Hide form and show success message
-				form.style.display = 'none';
-				successMessage.style.display = 'block';
-				
-				// Update success message with response
-				const successText = successMessage.querySelector('p');
-				successText.textContent = data.message || 'We\'ll notify you as soon as LoyaltyWallet is ready. Check your email for confirmation.';
-			} else {
-				// Show error message
-				alert(data.error || 'Something went wrong. Please try again.');
-			}
-		})
-		.catch(error => {
-			console.error('Subscription error:', error);
-			alert('Network error. Please check your connection and try again.');
-		})
-		.finally(() => {
-			// Reset form and button state
-			form.reset();
-			submitBtn.classList.remove('loading');
+	const form = document.getElementById('subscribeForm');
+	if (form) {
+		form.addEventListener('submit', function(e) {
+			e.preventDefault();
+			
+			const emailInput = document.getElementById('email') as HTMLInputElement;
+			const submitBtn = form.querySelector('.submit-btn') as HTMLButtonElement;
+			const successMessage = document.getElementById('successMessage');
+			
+			if (!emailInput || !submitBtn || !successMessage) return;
+			
+			// Show loading state
+			submitBtn.classList.add('loading');
+			
+			// Make API call to subscribe endpoint
+			fetch('/api/subscribe', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ email: emailInput.value })
+			})
+			.then(response => response.json())
+			.then(data => {
+				if (data.success) {
+					// Hide form and show success message
+					form.style.display = 'none';
+					successMessage.style.display = 'block';
+					
+					// Update success message with response
+					const successText = successMessage.querySelector('p');
+					if (successText) {
+						successText.textContent = data.message || 'We\'ll notify you as soon as Lealty is ready. Check your email for confirmation.';
+					}
+				} else {
+					// Show error message
+					alert(data.error || 'Something went wrong. Please try again.');
+				}
+			})
+			.catch(error => {
+				console.error('Subscription error:', error);
+				alert('Network error. Please check your connection and try again.');
+			})
+			.finally(() => {
+				// Reset form and button state
+				(form as HTMLFormElement).reset();
+				submitBtn.classList.remove('loading');
+			});
 		});
-	});
+	}
 </script>
 
 <style>
 	.subscribe {
 		padding: 80px 0;
-		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		background: linear-gradient(135deg, #549f8a 0%, #7ab18b 100%);
 		position: relative;
 		overflow: hidden;
 	}
@@ -185,13 +191,13 @@
 	}
 	
 	.form-group input:focus {
-		border-color: #6366f1;
+		border-color: #5FB49C;
 		box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
 	}
 	
 	.submit-btn {
 		padding: 12px 24px;
-		background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+		background: linear-gradient(135deg, #5FB49C 0%, #8dd0a2 100%);
 		color: white;
 		border: none;
 		border-radius: 8px;
