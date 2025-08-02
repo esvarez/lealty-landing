@@ -12,6 +12,7 @@ import (
 	"github.com/esvarez/lealty-landing/internal/web"
 
 	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
 	"github.com/resend/resend-go/v2"
@@ -47,7 +48,7 @@ func main() {
 
 	handler := newHandler(resendClient, secret.AudienceId, allowedDomains)
 
-	lambda.Start(handler)
+	lambda.Start(handler.handleRequest)
 }
 
 // Request represents the incoming Lambda request
@@ -110,7 +111,8 @@ func getSecret(secretName string, region string) *Secret {
 
 	svc := secretsmanager.NewFromConfig(config)
 	input := &secretsmanager.GetSecretValueInput{
-		SecretId: &secretName,
+		SecretId:     aws.String(secretName),
+		VersionStage: aws.String("AWSCURRENT"),
 	}
 
 	result, err := svc.GetSecretValue(context.TODO(), input)

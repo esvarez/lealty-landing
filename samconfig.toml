@@ -7,7 +7,7 @@ s3_bucket = "sam-managed-lealty-landing"
 region = "us-west-1"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
-parameters_overrides = "env=\"dev\" region=\"us-west-1\""
+parameters_overrides = "env=\"dev\" region=\"us-west-1\" secretName=\"lealty/resend/api-key\""
 image_repositories = []
 
 # You can also add different configurations for different environments
@@ -19,5 +19,7 @@ s3_bucket = "sam-managed-lealty-landing"
 region = "us-west-1"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
-parameters_overrides = "env=\"prod\" region=\"us-west-1\""
+parameters_overrides = "env=\"prod\" region=\"us-west-1\" secretName=\"lealty/resend/api-key\""
 image_repositories = []
+
+
