@@ -340,6 +340,9 @@
 		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 		position: relative;
 		animation: float 6s ease-in-out infinite;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 	
 	@keyframes float {
@@ -348,11 +351,11 @@
 	}
 	
 	.phone-screen {
-		width: 100%;
-		height: 100%;
+		width: calc(100% - 16px);
+		height: calc(100% - 16px);
 		background: linear-gradient(135deg, #98DFAF 0%, #5FB49C 100%);
 		border-radius: 24px;
-		padding: 60px 20px 40px 20px;
+		padding: 40px 16px 32px 16px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -362,9 +365,9 @@
 	.wallet-card {
 		background: white;
 		border-radius: 16px;
-		padding: 20px;
+		padding: 16px;
 		width: 100%;
-		max-width: 220px;
+		max-width: 200px;
 		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 		flex-shrink: 0;
 	}
@@ -373,22 +376,22 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		margin-bottom: 16px;
+		margin-bottom: 12px;
 	}
 	
 	.card-header h3 {
 		margin: 0;
-		font-size: 16px;
+		font-size: 14px;
 		font-weight: 600;
 		color: #1f2937;
 	}
 	
 	.card-logo {
-		font-size: 20px;
+		font-size: 16px;
 		background: #fbbf24;
-		width: 36px;
-		height: 36px;
-		border-radius: 12px;
+		width: 28px;
+		height: 28px;
+		border-radius: 8px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -396,15 +399,15 @@
 	}
 	
 	.card-progress {
-		margin-bottom: 14px;
+		margin-bottom: 12px;
 	}
 	
 	.progress-bar {
-		height: 6px;
+		height: 4px;
 		background: #e5e7eb;
-		border-radius: 4px;
+		border-radius: 2px;
 		overflow: hidden;
-		margin-bottom: 6px;
+		margin-bottom: 4px;
 	}
 	
 	.progress-fill {
@@ -415,21 +418,21 @@
 	
 	.card-progress p {
 		margin: 0;
-		font-size: 13px;
+		font-size: 11px;
 		color: #6b7280;
 	}
 	
 	.card-reward {
 		background: #f3f4f6;
-		padding: 10px;
-		border-radius: 8px;
+		padding: 8px;
+		border-radius: 6px;
 		text-align: center;
 	}
 	
 	.card-reward span {
 		font-weight: 600;
 		color: #5FB49C;
-		font-size: 13px;
+		font-size: 11px;
 	}
 	
 	@media (max-width: 768px) {
@@ -472,10 +475,22 @@
 		.phone-mockup {
 			width: 240px;
 			height: 480px;
+			padding: 6px;
 		}
 
 		.signup-group {
 			max-width: 100%;
+		}
+		
+		.phone-screen {
+			width: calc(100% - 12px);
+			height: calc(100% - 12px);
+			padding: 32px 12px 24px 12px;
+		}
+		
+		.wallet-card {
+			padding: 12px;
+			max-width: 180px;
 		}
 	}
 </style>
