@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"slices"
+	"strings"
 
 	"github.com/esvarez/lealty-landing/internal/web"
 
@@ -16,14 +18,16 @@ import (
 )
 
 type Handler struct {
-	resendClient *resend.Client
-	audienceId   string
+	resendClient   *resend.Client
+	audienceId     string
+	allowedDomains []string
 }
 
-func newHandler(resendClient *resend.Client, audienceId string) *Handler {
+func newHandler(resendClient *resend.Client, audienceId string, allowedDomains []string) *Handler {
 	return &Handler{
-		resendClient: resendClient,
-		audienceId:   audienceId,
+		resendClient:   resendClient,
+		audienceId:     audienceId,
+		allowedDomains: allowedDomains,
 	}
 }
 
@@ -34,11 +38,14 @@ func main() {
 		panic("ERROR: SECRET_NAME or REGION environment variable not set")
 	}
 
+	domains := os.Getenv("ALLOWED_DOMAINS")
+	allowedDomains := strings.Split(domains, ",")
+
 	secret := getSecret(secretName, region)
 
 	resendClient := resend.NewClient(secret.ResendAPIKey)
 
-	handler := newHandler(resendClient, secret.AudienceId)
+	handler := newHandler(resendClient, secret.AudienceId, allowedDomains)
 
 	lambda.Start(handler)
 }
@@ -60,6 +67,12 @@ type Secret struct {
 }
 
 func (h *Handler) handleRequest(_ context.Context, req web.Request) (web.Response, error) {
+
+	// Validate allowed domains
+	if len(h.allowedDomains) > 0 && !slices.Contains(h.allowedDomains, req.Headers["referer"]) {
+		return web.Error("unauthorized: "+req.Headers["referer"], http.StatusUnauthorized), nil
+	}
+
 	// Validate required fields
 	request := &Request{}
 
@@ -71,16 +84,14 @@ func (h *Handler) handleRequest(_ context.Context, req web.Request) (web.Respons
 		return web.Error("email is required", http.StatusBadRequest), nil
 	}
 
-	// Set default audience if not provided
-	audience := os.Getenv("AUDIENCE_ID")
-	if audience == "" {
+	if h.audienceId == "" {
 		return web.Error("audience is required", http.StatusBadRequest), nil
 	}
 
 	params := &resend.CreateContactRequest{
 		Email:        request.Email,
 		Unsubscribed: false,
-		AudienceId:   audience,
+		AudienceId:   h.audienceId,
 	}
 
 	_, err := h.resendClient.Contacts.Create(params)
