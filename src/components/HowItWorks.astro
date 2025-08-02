@@ -162,11 +162,7 @@
 	.step:first-child .step-number::after {
 		display: none;
 	}
-	
-	.step:last-child .step-number::after {
-		display: block;
-	}
-	
+
 	.step-content h3 {
 		font-size: 28px;
 		font-weight: 600;
@@ -376,9 +372,25 @@
 		.step-content h3 {
 			font-size: 24px;
 		}
+
+		.step-visual {
+			z-index: 5;
+		}
+
+		.step-number::after {
+			height: 450px;
+			z-index: -5;
+		}	
+		.step:last-child .step-number::after {
+			height: 540px;
+		}
 		
 		.step-content p {
 			font-size: 16px;
+		}
+
+		.step-content {
+			z-index: 5;
 		}
 	}
 </style>
