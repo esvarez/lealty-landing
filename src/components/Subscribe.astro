@@ -81,16 +81,15 @@
 			submitBtn.classList.add('loading');
 			
 			// Make API call to subscribe endpoint
-			fetch('/api/subscribe', {
+			fetch('https://4vzz99xv8l.execute-api.us-west-1.amazonaws.com/dev/audience/add-contact', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({ email: emailInput.value })
 			})
-			.then(response => response.json())
-			.then(data => {
-				if (data.success) {
+			.then(response =>  {
+				if (response.status === 200 || response.status === 201) {
 					// Hide form and show success message
 					form.style.display = 'none';
 					successMessage.style.display = 'block';
@@ -98,11 +97,11 @@
 					// Update success message with response
 					const successText = successMessage.querySelector('p');
 					if (successText) {
-						successText.textContent = data.message || 'We\'ll notify you as soon as Lealty is ready. Check your email for confirmation.';
+						successText.textContent = 'We\'ll notify you as soon as Lealty is ready. Check your email for confirmation.';
 					}
 				} else {
 					// Show error message
-					alert(data.error || 'Something went wrong. Please try again.');
+					alert('Something went wrong. Please try again.');
 				}
 			})
 			.catch(error => {
