@@ -1,7 +1,7 @@
 <header class="header">
 	<div class="container">
 		<div class="nav-brand">
-			<h2>LoyaltyWallet</h2>
+			<img src="/src/assets/whiteBgColor.png" alt="LoyaltyWallet" height="48">
 		</div>
 		<nav class="nav">
 			<a href="#benefits" class="nav-link">Benefits</a>
@@ -66,14 +66,13 @@
 		height: 72px;
 	}
 	
-	.nav-brand h2 {
-		margin: 0;
-		font-size: 24px;
-		font-weight: 700;
-		background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
+	.nav-brand {
+		display: flex;
+		align-items: center;
+	}
+	
+	.nav-brand img {
+		display: block;
 	}
 	
 	.nav {
