@@ -352,55 +352,59 @@
 		height: 100%;
 		background: linear-gradient(135deg, #98DFAF 0%, #5FB49C 100%);
 		border-radius: 24px;
-		padding: 40px 20px;
+		padding: 60px 20px 40px 20px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		overflow: hidden;
 	}
 	
 	.wallet-card {
 		background: white;
 		border-radius: 16px;
-		padding: 24px;
+		padding: 20px;
 		width: 100%;
+		max-width: 220px;
 		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+		flex-shrink: 0;
 	}
 	
 	.card-header {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		margin-bottom: 20px;
+		margin-bottom: 16px;
 	}
 	
 	.card-header h3 {
 		margin: 0;
-		font-size: 18px;
+		font-size: 16px;
 		font-weight: 600;
 		color: #1f2937;
 	}
 	
 	.card-logo {
-		font-size: 24px;
+		font-size: 20px;
 		background: #fbbf24;
-		width: 40px;
-		height: 40px;
+		width: 36px;
+		height: 36px;
 		border-radius: 12px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		flex-shrink: 0;
 	}
 	
 	.card-progress {
-		margin-bottom: 16px;
+		margin-bottom: 14px;
 	}
 	
 	.progress-bar {
-		height: 8px;
+		height: 6px;
 		background: #e5e7eb;
 		border-radius: 4px;
 		overflow: hidden;
-		margin-bottom: 8px;
+		margin-bottom: 6px;
 	}
 	
 	.progress-fill {
@@ -411,13 +415,13 @@
 	
 	.card-progress p {
 		margin: 0;
-		font-size: 14px;
+		font-size: 13px;
 		color: #6b7280;
 	}
 	
 	.card-reward {
 		background: #f3f4f6;
-		padding: 12px;
+		padding: 10px;
 		border-radius: 8px;
 		text-align: center;
 	}
@@ -425,7 +429,7 @@
 	.card-reward span {
 		font-weight: 600;
 		color: #5FB49C;
-		font-size: 14px;
+		font-size: 13px;
 	}
 	
 	@media (max-width: 768px) {
