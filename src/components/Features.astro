@@ -45,6 +45,11 @@
 				<h3>Real-Time Updates</h3>
 				<p>Instant synchronization of points, rewards, and customer data across all devices.</p>
 			</div>
+			<div class="feature-card ai-feature">
+				<div class="feature-icon">🤖</div>
+				<h3>AI Marketing Assistant</h3>
+				<p>Automated SMS and push notification campaigns powered by AI, personalized based on customer behavior and preferences.</p>
+			</div>
 		</div>
 	</div>
 </section>
@@ -119,6 +124,32 @@
 		color: #6b7280;
 		margin: 0;
 		line-height: 1.6;
+	}
+	
+	.ai-feature {
+		background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+		border: 2px solid #5FB49C;
+		position: relative;
+		overflow: hidden;
+	}
+	
+	.ai-feature::before {
+		content: 'NEW';
+		position: absolute;
+		top: 12px;
+		right: -20px;
+		background: linear-gradient(135deg, #5FB49C 0%, #8dd0a2 100%);
+		color: white;
+		padding: 4px 24px;
+		font-size: 12px;
+		font-weight: 600;
+		transform: rotate(45deg);
+		box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+	}
+	
+	.ai-feature:hover {
+		transform: translateY(-8px);
+		box-shadow: 0 16px 32px rgba(95, 180, 156, 0.2);
 	}
 	
 	@media (max-width: 768px) {
